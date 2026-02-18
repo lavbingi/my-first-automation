@@ -8,9 +8,11 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    # This runs the tests on two different versions of Node.js at once
     strategy:
       matrix:
         node-version: [18.x, 20.x]
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -26,9 +28,11 @@ jobs:
       - name: Run Security Check
         run: node app.js
         env:
+          # This pulls your API key from the GitHub Secrets "Vault"
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
 
   package:
+    # This job only starts if the build-and-test jobs pass
     needs: build-and-test
     runs-on: ubuntu-latest
     steps:
