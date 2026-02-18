@@ -1,0 +1,34 @@
+
+Checkpoint 1
+Q1: What is the Trigger in this workflow? (What makes the script start?)
+ans.The trigger is that on: [push] line at the top. Basically, it’s the "sensor" for the whole thing. It tells GitHub to start the script the second it detects that you’ve pushed any new code or changes to the repository.
+● Q2: Where is the computer located that actually runs the echo command?'
+ans.It’s running in GitHub’s cloud servers. When I put runs-on: ubuntu-latest, I’m basically asking GitHub to let me borrow one of their Linux virtual machines for a few seconds. It’s not happening on my own laptop; it’s all happening on a remote server they manage.
+● Q3: If you create a new file called test.txt and push it, will this Action run again?
+Why?
+ans.Yep, it definitely will. The reason is that the trigger is set to [push], which is super broad. It doesn't care if I'm changing a massive piece of code or just adding a tiny text file like test.txt. As long as I "push" something to the repo, the robot wakes up and runs the whole greeting again.
+
+Check Point 2
+Checkpoint 2
+● Q1: When the test failed, what color icon appeared in GitHub?
+When the test fails, a Red "X" icon appears next to the workflow run. GitHub uses this to signal that something went wrong and the "build is broken," whereas a green checkmark means everything passed perfectly.
+● Q2: Why do we need the actions/checkout@v4 step? What happens to the code if we delete that line?
+We need this step because the virtual computer GitHub provides starts out completely empty—it doesn't actually have my project files on it yet.
+What it does: It basically "downloads" or "clones" my code from the repository onto that temporary server.
+If I delete it: The next step (python3 test_calc.py) will crash immediately because the computer won't be able to find the file.
+● Q3: In a real job, why is it better for the CI to find this error than a customer?
+It's way better for the CI to catch it because it’s a private safety net.
+Speed and Cost: Finding a bug in CI takes seconds to fix and costs almost nothing. If a customer finds it, the company could lose money, its reputation might take a hit, and the developers have to drop everything to do an emergency fix.
+Consistency: Humans might forget to run tests before they save their work, but the CI "Robot" never forgets. It checks every single change automatically before the code ever reaches the public.
+
+
+check point 3
+Q1: Why did we use a &quot;Secret&quot; instead of just typing the API Key into the app.js file?
+"I used a Secret because if I hard-coded the API key directly into app.js, anyone browsing my public repo could steal it. Using GitHub Secrets keeps the key in a 'vault' that only the automation can access while it's running."
+
+● Q2: What is the benefit of testing on two different Node.js versions (Matrix)?
+The Matrix lets me test my code on multiple Node.js versions (18 and 20) at the exact same time. It's basically an insurance policy to make sure my app doesn't break for users who are on a slightly older or newer version of Node."
+
+● Q3: What is a &quot;Build Artifact&quot; and how would a Deployment team use it?A Build Artifact is the final, 'ready-to-ship' version of my code—like the .zip file I just generated. A Deployment team would take this specific file and upload it to a server, knowing it has already passed all the security and version tests.
+
+Check Point 4
